@@ -1,16 +1,16 @@
 package com.example.miguel.realmejemplo.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
+
 import com.example.miguel.realmejemplo.R;
 import com.example.miguel.realmejemplo.adapters.MyAdapter;
 import com.example.miguel.realmejemplo.models.Dog;
 import com.example.miguel.realmejemplo.models.Person;
-import java.util.List;
+
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
@@ -65,7 +65,8 @@ public class MainActivity extends AppCompatActivity implements RealmChangeListen
                 addPeople();
                 return true;
             case R.id.item_delete:
-                removeAll();
+                ///removeAll();
+                removeLast();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -83,6 +84,11 @@ public class MainActivity extends AppCompatActivity implements RealmChangeListen
         realm.commitTransaction();
     }
 
+    private void removeLast(){
+        realm.beginTransaction();
+        people.deleteLastFromRealm();
+        realm.commitTransaction();
+    }
 
     private void addPeople() {
         realm.executeTransaction(new Realm.Transaction() {
